@@ -1,4 +1,4 @@
-# Retrieval Strategies
+# Sparse Retrieval Strategies
 
 ## Overview
 In information retrieval, the goal is to find relevant documents from a large corpus based on a user's query. Two common retrieval strategies are TF-IDF (Term Frequency-Inverse Document Frequency) and BM25 (Best Matching 25). This document provides an overview of these strategies and their use cases.
