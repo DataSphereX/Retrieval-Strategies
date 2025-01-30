@@ -139,10 +139,13 @@ print(f"BERT - Most relevant document: {most_relevant_doc_bert}")
 ## SBERT Example
 The SBERT example demonstrates how to encode queries and documents using a pre-trained SBERT model and compute similarity scores to find the most relevant document.
 
+```python
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-
+```
 # Load pre-trained SBERT model
+
+```python
 model_sbert = SentenceTransformer('paraphrase-MiniLM-L6-v2')
 
 def encode_sbert(text, model):
@@ -168,6 +171,7 @@ most_relevant_doc_sbert = documents[most_relevant_doc_index_sbert]
 
 print(f"SBERT - Query: {query}")
 print(f"SBERT - Most relevant document: {most_relevant_doc_sbert}")
+```
 
-# Conclusion
+## Conclusion
 This repository provides examples of how to use BERT and SBERT for dense retrieval tasks. SBERT is generally better suited for sentence similarity and dense retrieval due to its fine-tuning for these tasks. BERT can also be used but may require additional processing to achieve similar performance.
