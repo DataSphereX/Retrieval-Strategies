@@ -66,3 +66,108 @@ for i, score in enumerate(bm25_scores):
 
 # Dense Retrieval Examples
 
+This repository contains examples of dense retrieval using BERT and SBERT models. Dense retrieval involves using dense vector representations of queries and documents to find the most relevant documents.
+
+## Overview
+
+Dense retrieval is a technique used in information retrieval where both queries and documents are represented as dense vectors. These vectors are then compared using similarity measures like cosine similarity to retrieve the most relevant documents.
+
+### Models Used
+
+1. **BERT (Bidirectional Encoder Representations from Transformers)**:
+   - General-purpose language understanding model.
+   - Uses Masked Language Model (MLM) and Next Sentence Prediction (NSP) for training.
+
+2. **SBERT (Sentence-BERT)**:
+   - Fine-tuned version of BERT for producing semantically meaningful sentence embeddings.
+   - Uses a Siamese network structure for training.
+
+### Comparison
+
+- **BERT**: Requires averaging token embeddings for sentence representation. Suitable for general language understanding tasks.
+- **SBERT**: Specifically fine-tuned for sentence embeddings, providing better performance for sentence similarity and dense retrieval tasks.
+
+## Installation
+
+To run the examples, you need to install the following libraries:
+
+```python
+pip install transformers sentence-transformers torch scikit-learn
+```
+
+## Usage
+##  BERT Example
+The BERT example demonstrates how to encode queries and documents using a pre-trained BERT model and compute similarity scores to find the most relevant document.
+
+```python
+from transformers import BertTokenizer, BertModel
+import torch
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Load pre-trained BERT model and tokenizer
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+model = BertModel.from_pretrained('bert-base-uncased')
+
+def encode_bert(text, tokenizer, model):
+    inputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True)
+    with torch.no_grad():
+        outputs = model(**inputs)
+    return outputs.last_hidden_state.mean(dim=1).squeeze()
+
+query = "What is dense retrieval?"
+documents = [
+    "Dense retrieval uses dense vector representations.",
+    "Sparse retrieval uses term-based representations.",
+    "BERT is a transformer model."
+]
+
+query_vector_bert = encode_bert(query, tokenizer, model)
+document_vectors_bert = [encode_bert(doc, tokenizer, model) for doc in documents]
+
+def get_similarity(query_vector, document_vectors):
+    similarities = cosine_similarity([query_vector], document_vectors)
+    return similarities[0]
+
+similarities_bert = get_similarity(query_vector_bert, document_vectors_bert)
+most_relevant_doc_index_bert = similarities_bert.argmax()
+most_relevant_doc_bert = documents[most_relevant_doc_index_bert]
+
+print(f"BERT - Query: {query}")
+print(f"BERT - Most relevant document: {most_relevant_doc_bert}")
+```
+
+## SBERT Example
+The SBERT example demonstrates how to encode queries and documents using a pre-trained SBERT model and compute similarity scores to find the most relevant document.
+
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Load pre-trained SBERT model
+model_sbert = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+
+def encode_sbert(text, model):
+    return model.encode(text)
+
+query = "What is dense retrieval?"
+documents = [
+    "Dense retrieval uses dense vector representations.",
+    "Sparse retrieval uses term-based representations.",
+    "BERT is a transformer model."
+]
+
+query_vector_sbert = encode_sbert(query, model_sbert)
+document_vectors_sbert = [encode_sbert(doc, model_sbert) for doc in documents]
+
+def get_similarity(query_vector, document_vectors):
+    similarities = cosine_similarity([query_vector], document_vectors)
+    return similarities[0]
+
+similarities_sbert = get_similarity(query_vector_sbert, document_vectors_sbert)
+most_relevant_doc_index_sbert = similarities_sbert.argmax()
+most_relevant_doc_sbert = documents[most_relevant_doc_index_sbert]
+
+print(f"SBERT - Query: {query}")
+print(f"SBERT - Most relevant document: {most_relevant_doc_sbert}")
+
+# Conclusion
+This repository provides examples of how to use BERT and SBERT for dense retrieval tasks. SBERT is generally better suited for sentence similarity and dense retrieval due to its fine-tuning for these tasks. BERT can also be used but may require additional processing to achieve similar performance.
