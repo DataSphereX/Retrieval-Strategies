@@ -62,7 +62,7 @@ bm25_scores = bm25.get_scores(tokenized_query)
 print("\nBM25 Scores:")
 for i, score in enumerate(bm25_scores):
     print(f"Document {i+1}: {score}")```
-
+```python
 
 # Dense Retrieval Examples
 
@@ -93,7 +93,7 @@ To run the examples, you need to install the following libraries:
 
 ```python
 pip install transformers sentence-transformers torch scikit-learn
-```
+```python
 Usage
 BERT Example
 The BERT example demonstrates how to encode queries and documents using a pre-trained BERT model and compute similarity scores to find the most relevant document.
