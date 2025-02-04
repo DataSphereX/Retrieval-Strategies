@@ -175,3 +175,64 @@ print(f"SBERT - Most relevant document: {most_relevant_doc_sbert}")
 
 ## Conclusion
 This repository provides examples of how to use BERT and SBERT for dense retrieval tasks. SBERT is generally better suited for sentence similarity and dense retrieval due to its fine-tuning for these tasks. BERT can also be used but may require additional processing to achieve similar performance.
+
+# Hybrid Retrieval: Combining Sparse and Dense for Smarter Search
+## Introduction
+In the world of information retrieval, finding the most relevant documents efficiently is a key challenge. Traditional keyword-based search (Sparse Retrieval) is fast and interpretable but struggles with synonyms and meaning. On the other hand, AI-powered search (Dense Retrieval) understands semantics but is computationally expensive.
+
+🔹 What if we could get the best of both worlds?
+🔹 What if keyword matching and semantic search worked together?
+
+That’s where Hybrid Retrieval comes in! 🚀
+
+- Sparse Retrieval: Keyword-Based Search
+- Sparse retrieval methods rely on exact keyword matches and statistical techniques like BM25 or TF-IDF to rank documents based on term importance.
+
+**How Sparse Retrieval Works**
+✔️ Builds an inverted index mapping terms to documents.
+✔️ Ranks results based on term frequency, inverse document frequency, and length normalization.
+✔️ Example models: BM25, TF-IDF, ElasticSearch.
+
+**Limitations of Sparse Retrieval**
+❌ Fails with synonyms (e.g., "car" vs. "automobile").
+❌ Ignores context (e.g., "Apple" the company vs. "apple" the fruit).
+❌ Struggles with long-tail queries that have rare words.
+
+Dense Retrieval: AI-Powered Semantic Search
+Dense retrieval methods use deep learning models to convert queries and documents into vector embeddings and perform nearest-neighbor search to find relevant results.
+
+**How Dense Retrieval Works**
+✔️ Encodes text into a high-dimensional vector space using models like SentenceTransformers.
+✔️ Indexes vectors using FAISS, ANN, or vector databases for fast retrieval.
+✔️ Computes similarity using cosine similarity or Euclidean distance.
+✔️ Example models: BERT, ColBERT, DPR, SentenceTransformers.
+
+**Limitations of Dense Retrieval**
+❌ Requires training on large-scale datasets.
+❌ Computationally expensive, especially on large corpora.
+❌ Loses interpretability compared to keyword-based search.
+
+Hybrid Retrieval: The Best of Both Worlds! 🎯
+Hybrid retrieval combines sparse (BM25) and dense (embeddings) retrieval to improve both precision and recall. This approach ensures:
+
+✅ Exact keyword matching (Sparse).
+✅ Semantic understanding (Dense).
+✅ Improved ranking & accuracy with fusion techniques.
+
+**How Hybrid Retrieval Works?**
+1️⃣ Retrieve candidates using BM25 (Lexical matching).
+2️⃣ Retrieve candidates using FAISS (Semantic matching).
+3️⃣ Fuse results using:
+
+Weighted combination (BM25 + Dense scores).
+Reranking models (Learning-to-Rank, BERT).
+Reciprocal Rank Fusion (RRF) to balance rankings.
+🔹 Example Stack: ElasticSearch + FAISS, Whoosh + SentenceTransformers.
+
+**Key Takeaways**
+✔️ BM25 (Sparse) is fast & interpretable but lacks semantics.
+✔️ Dense Retrieval understands meaning but needs compute power.
+✔️ Hybrid Retrieval is the best mix of speed, precision & context.
+✔️ Ideal for AI-powered search in chatbots, e-commerce, and enterprise systems.
+
+
